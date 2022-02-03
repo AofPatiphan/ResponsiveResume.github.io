@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script
+      src="https://kit.fontawesome.com/5defafb956.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Homework 1</title>
+    <style>
+      html {
+        font-family: "Heebo", sans-serif;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      /* -----Burger Menu */
+      .content {
+        color: #fafafa;
+      }
+
+      .nav {
+        display: none;
+        width: 100%;
+        background-color: white;
+        /* display: flex; */
+        justify-content: flex-end;
+        position: relative;
+        top: 0;
+        z-index: 3;
+      }
+
+      #hamburger {
+        margin: 1% 4%;
+      }
+
+      #hamburger {
+        opacity: 0.5;
+        cursor: pointer;
+        transition: opacity 0.25s linear;
+        width: clamp(1.5rem, 2vw + 1.1rem, 6rem);
+        height: clamp(2rem, 1.4vw + 1.7rem, 5rem);
+        display: flex;
+        align-items: center;
+      }
+
+      #hamburger:hover {
+        opacity: 1;
+      }
+
+      #hamburger div,
+      #hamburger div:after,
+      #hamburger div:before {
+        background-color: black;
+        border-radius: 10px;
+        width: clamp(1.5rem, 2vw + 1.1rem, 6rem);
+        height: clamp(0.2rem, 0.3vw + 0.1rem, 0.8rem);
+        transition: all 0.15s linear;
+      }
+
+      #hamburger div:before,
+      #hamburger div:after {
+        content: "";
+        position: absolute;
+      }
+
+      #hamburger div:before {
+        transform: translateY(-200%);
+      }
+
+      #hamburger div:after {
+        transform: translateY(200%);
+      }
+
+      #hamburger.open div {
+        background: transparent;
+      }
+
+      #hamburger.open div:before {
+        transform: rotate(45deg);
+      }
+
+      #hamburger.open div:after {
+        transform: rotate(-45deg);
+      }
+
+      #overlay {
+        position: absolute;
+        width: 100%;
+        height: 20%;
+        background-color: rgba(255, 255, 255, 1);
+        z-index: 2;
+        transform: translateY(-100%);
+        transition: all 0.5s ease-in-out;
+        display: none;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+      }
+
+      #overlay.menu {
+        transform: translateY(0%);
+      }
+
+      #overlay a {
+        text-decoration: none;
+        color: black;
+        font-size: clamp(1rem, 4.1vw + 0.2rem, 10rem);
+        margin: 2% 10% 0 0;
+        opacity: 0.5;
+        transition: opacity 0.2s linear;
+      }
+
+      #overlay a:hover {
+        opacity: 1;
+      }
+      /* -----Nav Bar----- */
+      .menu {
+        display: flex;
+        justify-content: flex-end;
+        padding: 1rem 3rem 1rem;
+      }
+      ul li,
+      li > a {
+        display: inline-block;
+        text-decoration: none;
+        margin-left: 0.5rem;
+        color: black;
+      }
+
+      /* -----Profile----- */
+
+      .profile {
+        display: flex;
+        justify-content: space-between;
+        margin: 5rem 5rem 0rem 5rem;
+      }
+
+      .textpr {
+        width: 50%;
+      }
+      .textpr > h1 {
+        font-size: 1.7rem;
+      }
+
+      .textpr > p {
+        font-size: 0.8rem;
+        margin-top: 1rem;
+      }
+
+      button {
+        margin-top: 1.5rem;
+        padding: 0.5rem 0.6rem;
+        background-color: #ff6464;
+        color: white;
+        border: none;
+        letter-spacing: 0.2ch;
+      }
+
+      .img > img {
+        width: 170px;
+        border-radius: 50%;
+      }
+
+      /* -----Recent post----- */
+
+      .recp {
+        margin-top: 3rem;
+        background-color: #edf7fa;
+        padding: 1.4rem 5rem;
+      }
+
+      .head {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .tepo {
+        font-size: 0.9rem;
+      }
+      .va > a {
+        font-size: 0.7rem;
+        text-decoration: none;
+        color: #00a8cc;
+      }
+
+      .post {
+        margin-top: 1rem;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+      }
+
+      .post > div {
+        width: 100%;
+        padding: 1rem;
+        background: white;
+        border-radius: 4px;
+      }
+
+      .post > div > h2 {
+        font-size: 1.1rem;
+      }
+
+      .date {
+        font-size: 0.9rem;
+      }
+      .ct {
+        font-size: 0.8rem;
+        margin-top: 1rem;
+      }
+
+      /* -----Feature works */
+      .fwtoptext {
+        margin: 1.5rem 5rem 1rem 5rem;
+      }
+
+      .fwimg > img {
+        width: 200px;
+        border-radius: 10px;
+      }
+      .fwmain {
+        margin: 1rem 5rem 1rem 5rem;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .fwcontent {
+        margin-top: 1rem;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid #e0e0e0;
+        display: flex;
+        justify-content: flex-start;
+      }
+
+      .fwtext {
+        margin: 0 0 0 1rem;
+      }
+      .fwtext > button {
+        margin: 1rem 0 0 0;
+        background: #142850;
+        border-radius: 16px;
+        padding: 1px 7px;
+      }
+      .fwtext > a {
+        margin-left: 1.5rem;
+        color: #8695a4;
+        text-decoration: none;
+      }
+      .fwtext > p {
+        margin-top: 1rem;
+        font-size: 0.8rem;
+      }
+
+      /* -----Footer----- */
+      footer {
+        margin: 5rem 5rem 2rem;
+        text-align: center;
+      }
+      footer > div {
+        text-align: center;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        letter-spacing: 0.5rem;
+      }
+      footer > p {
+        font-size: 0.5rem;
+      }
+
+      @media only screen and (max-width: 700px) {
+        /* -----Nav----- */
+        .nav {
+          display: flex;
+        }
+        .menu {
+          display: none;
+        }
+        #overlay {
+          display: flex;
+        }
+
+        /* -----Profile----- */
+        .profile {
+          display: flex;
+          flex-direction: column-reverse;
+          align-items: center;
+          margin: 1rem;
+        }
+        .textpr {
+          margin-top: 3rem;
+          text-align: center;
+          width: 100%;
+        }
+
+        .img > img {
+          width: 140px;
+        }
+
+        /* -----Recent Post----- */
+        .head {
+          text-align: center;
+          justify-content: center;
+        }
+        .head > div > a {
+          display: none;
+        }
+
+        .recp {
+          margin-top: 3rem;
+          background-color: #edf7fa;
+          padding: 1.4rem 1rem 0 1rem;
+        }
+
+        .post {
+          margin-top: 1rem;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          justify-content: space-between;
+          padding-bottom: 2rem;
+        }
+
+        .post > div {
+          width: 95%;
+          height: 30%;
+          padding: 1rem;
+          background: white;
+          margin-top: 1rem;
+          border-radius: 4px;
+        }
+
+        /* -----Feature works----- */
+
+        .fwtoptext {
+          text-align: center;
+        }
+
+        .fwimg > img {
+          width: 100%;
+        }
+        .fwmain {
+          margin: 1rem 1rem 1rem 1rem;
+          display: flex;
+          flex-direction: column;
+          align-content: center;
+        }
+
+        .fwcontent {
+          margin-top: 1rem;
+          padding-bottom: 0.5rem;
+          margin-bottom: 1rem;
+          border-bottom: 1px solid #e0e0e0;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .fwtext {
+          margin: 1rem 0 1rem 0;
+        }
+
+        /* -----Footer----- */
+        footer {
+          margin: 5rem 1rem 2rem;
+          text-align: center;
+        }
+        footer > div {
+          text-align: center;
+          font-size: 2rem;
+          margin-bottom: 1rem;
+          letter-spacing: 1rem;
+        }
+        footer > p {
+          font-size: 0.75rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Nav Bar -->
+
+    <div class="nav">
+      <div id="hamburger">
+        <div></div>
+      </div>
+    </div>
+    <div id="overlay">
+      <a href="#">Works</a>
+      <a href="#">Blog</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="menu">
+      <ul>
+        <li>
+          <a href="#"><b>Works</b></a>
+        </li>
+        <li>
+          <a href="#"><b>Blog</b></a>
+        </li>
+        <li>
+          <a href="#"><b>Contact</b></a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Profile -->
+    <div class="profile">
+      <div class="textpr">
+        <h1>
+          Hi, I am John, <br />
+          Creative Technologist
+        </h1>
+        <p>
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. In
+          dignissimos quae dolore repudiandae ex perspiciatis voluptate,
+          voluptatibus quas placeat ab.
+        </p>
+        <button type="submit">Download Resume</button>
+      </div>
+      <div class="img">
+        <img src="IMG_20211218_001827_094.jpeg" alt="" />
+      </div>
+    </div>
+
+    <!-- Recent post -->
+    <div class="recp">
+      <div class="head">
+        <div class="tepo"><p>Recent posts</p></div>
+        <div class="va"><a href="#">Viev all</a></div>
+      </div>
+      <div class="post">
+        <div>
+          <h2>Making a design system from <br />scratch</h2>
+          <br />
+          <p class="date">
+            12 Feb 2020 &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+            Design, Pattern
+          </p>
+          <p class="ct">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+            Consectetur unde eius harum magni voluptas commodi doloremque
+            consequatur aliquid vero ducimus.
+          </p>
+        </div>
+        <div>
+          <h2>Creating pixel perfect icons in<br />Figma</h2>
+          <br />
+          <p class="date">
+            12 Feb 2020 &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+            Design, Pattern
+          </p>
+          <p class="ct">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+            Consectetur unde eius harum magni voluptas commodi doloremque
+            consequatur aliquid vero ducimus.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Featured works -->
+    <div class="fw">
+      <div class="fwtoptext">Featured works</div>
+      <div class="fwmain">
+        <div class="fwcontent">
+          <div class="fwimg">
+            <img src="2565-02-03 at 13.44.17.png" alt="" />
+          </div>
+          <div class="fwtext">
+            <h2>Designing Dashboards</h2>
+            <button>2020</button><a href="#">Dashboard</a>
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minima
+              nisi soluta nihil vitae neque quasi dicta, rerum ducimus adipisci
+              repellat.
+            </p>
+          </div>
+        </div>
+        <div class="fwcontent">
+          <div class="fwimg">
+            <img src="2565-02-03 at 13.44.42.png" alt="" />
+          </div>
+          <div class="fwtext">
+            <h2>Vibrant Portraits of 2020</h2>
+            <button>2018</button><a href="#">Illustration</a>
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minima
+              nisi soluta nihil vitae neque quasi dicta, rerum ducimus adipisci
+              repellat.
+            </p>
+          </div>
+        </div>
+        <div class="fwcontent">
+          <div class="fwimg">
+            <img src="2565-02-03 at 13.44.55.png" alt="" />
+          </div>
+          <div class="fwtext">
+            <h2>36 Days of Malayalam type</h2>
+            <button>2018</button><a href="#">Typography</a>
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minima
+              nisi soluta nihil vitae neque quasi dicta, rerum ducimus adipisci
+              repellat.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div>
+        <i class="fab fa-facebook-square" style="margin-left: 0.5rem;"></i>
+        <i class="fab fa-instagram"></i>
+        <i class="fab fa-twitter"></i>
+        <i class="fab fa-linkedin"></i>
+      </div>
+
+      <p>Copyright<i class="far fa-copyright">2020</i>All rights reserved</p>
+    </footer>
+  </body>
+  <script>
+    (() => {
+      const hamburger = document.getElementById("hamburger");
+      const menu = document.getElementById("overlay");
+      let open = false;
+
+      const change = () => {
+        if (!open) {
+          hamburger.classList.add("open");
+          menu.classList.add("menu");
+        } else {
+          hamburger.classList.remove("open");
+          menu.classList.remove("menu");
+        }
+        open = !open;
+      };
+
+      hamburger.addEventListener("click", change);
+    })();
+  </script>
+</html>
